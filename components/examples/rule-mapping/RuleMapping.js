@@ -3,11 +3,11 @@ import uuid from 'uuid'
 import update from 'immutability-helper'
 import Container from './Container'
 import Operation from './Operation'
-import { OperationTypes, OperationalSigns, OperationalSignValues } from './Contants';
+import { OperationTypes, OperationalSigns } from './Contants';
 
 function genRules(times = 1) {
-  return new Array(times).fill(null).map((r, i) => ({
-    type: OperationTypes.PROPERTY, id: uuid(), name: '属性', value: [i.toString(), i.toString()],
+  return new Array(times).fill(null).map(() => ({
+    type: OperationTypes.PROPERTY, id: uuid(), name: '属性', value: ['', ''],
   }))
 }
 
@@ -93,6 +93,17 @@ export default class extends React.Component {
     })
   }
 
+  changeRule = (id, newValue) => {
+    const { index, rule } = this.findRule(id)
+    rule.value = newValue
+    this.scheduleUpdate({
+      rules: {
+        $splice: [[index, 1, rule]],
+      },
+    })
+    console.log(this.state.rules)
+  }
+
   scheduleUpdate(updateFn) {
     this.pendingUpdateFn = updateFn
     if (!this.requestedFrame) {
@@ -110,6 +121,7 @@ export default class extends React.Component {
           findRule={this.findRule}
           moveRule={this.moveRule}
           deleteRule={this.deleteRule}
+          changeRule={this.changeRule}
         />
         <div style={{ marginBottom: 12 }}>你可以添加：</div>
         <div>
