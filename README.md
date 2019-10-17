@@ -16,4 +16,4 @@ yarn dev
 
 ## License
 
-MIT © Richard McRichface
+MIT © acbde45
