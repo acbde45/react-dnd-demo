@@ -197,7 +197,7 @@ export default class extends Component {
   render() {
     const { workbook, fileName } = this.state;
 
-    return (
+    return ( 
       <div style={{ padding: 24 }}>
         <Button className="upload-wrap">
           <Icon type="upload" />
