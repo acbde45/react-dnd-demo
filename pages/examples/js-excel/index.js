@@ -3,8 +3,6 @@ import { Button, Icon, message } from "antd";
 import * as XLSX from "xlsx";
 import "./index.css";
 
-const Blob = require("node-blob");
-
 export default class extends Component {
   constructor(props) {
     super(props);
@@ -41,6 +39,9 @@ export default class extends Component {
     var sheetNames = workbook.SheetNames; // 工作表名称集合
     var worksheet = workbook.Sheets[sheetNames[0]]; // 这里我们只读取第一张sheet
     var csv = XLSX.utils.sheet_to_csv(worksheet);
+    var json = XLSX.utils.sheet_to_json(worksheet);
+    console.log(json);
+    console.log(csv);
     document.getElementById("result").innerHTML = this.csv2table(csv);
   };
 
